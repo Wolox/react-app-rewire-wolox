@@ -10,7 +10,7 @@ const fileLoaderMatcher = utils.createLoaderMatcher("file-loader");
 
 const cssFilename = "static/css/[name].[contenthash:8].css";
 
-export default function override(config) {
+export default function override(config, env) {
   const eslintRule = utils.findRule(config.module.rules, eslintLoaderMatcher);
   const {
     baseConfig,
