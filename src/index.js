@@ -1,4 +1,5 @@
 import ExtractTextPlugin from "extract-text-webpack-plugin";
+const rewireReactHotLoader = require("react-app-rewire-hot-loader");
 
 import loaders from "./loaders";
 import utils from "./utils";
@@ -37,9 +38,13 @@ export default function override(config) {
 
   config.plugins = (config.plugins || []).concat([
     new ExtractTextPlugin({
-      filename: cssFilename
+      filename: cssFilename,
+      allChunks: true,
+      disable: process.env.NODE_ENV !== "production"
     })
   ]);
 
+  config = rewireReactHotLoader(config, env);
+
   return config;
-};
+}
